@@ -139,6 +139,7 @@ FLOWS = {
         "esphome",
         "eufylife_ble",
         "evil_genius_labs",
+        "extrusion_gorelka",
         "ezviz",
         "faa_delays",
         "fibaro",

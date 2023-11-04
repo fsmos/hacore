@@ -1623,6 +1623,12 @@
       "config_flow": true,
       "iot_class": "local_polling"
     },
+    "extrusion_gorelka": {
+      "name": "Extrusion Gorelka Integration",
+      "integration_type": "hub",
+      "config_flow": true,
+      "iot_class": "local_polling"
+    },
     "ezviz": {
       "name": "EZVIZ",
       "integration_type": "hub",
