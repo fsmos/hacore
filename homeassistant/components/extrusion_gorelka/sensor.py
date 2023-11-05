@@ -253,7 +253,7 @@ class StateSensor(SensorBase):
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} State"
 
-        self._attr_options = (["work", "sleep", "heat_od"],)
+        self._attr_options = ["work", "sleep", "heat_od"]
         self._attr_native_value = self._gorelka.main_status
 
     async def async_update(self) -> None:
