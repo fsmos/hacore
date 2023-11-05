@@ -246,12 +246,11 @@ class StateSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(gorelka)
 
-        # As per the sensor, this must be a unique value within this domain. This is done
-        # by using the device ID, and appending "_battery"
         self._attr_unique_id = f"{self._gorelka.gorelka_id}_state"
 
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} State"
+        self._attr_translation_key = "main_state"
 
         self._attr_options = ["work", "sleep", "heat_od"]
         self._attr_native_value = self._gorelka.main_status
