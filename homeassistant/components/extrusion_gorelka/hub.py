@@ -55,6 +55,7 @@ class Gorelka:
         self._temp_ext = 20
         self._temp_disel = 20
         self._temp_oil = 20
+        self._is_on = False
 
         # Some static information about this device
         self.firmware_version = f"0.0.{random.randint(1, 9)}"
@@ -76,6 +77,24 @@ class Gorelka:
         State is announced a random number of seconds later.
         """
         self._set_temp_main = temp
+
+        self._loop.create_task(self.delayed_update())
+
+    async def switch_on(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._is_on = True
+
+        self._loop.create_task(self.delayed_update())
+
+    async def switch_off(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._is_on = False
 
         self._loop.create_task(self.delayed_update())
 
@@ -130,3 +149,8 @@ class Gorelka:
     def temp_oil(self) -> int:
         """Oil Temp."""
         return self._temp_oil
+
+    @property
+    def is_on(self) -> int:
+        """Oil Temp."""
+        return self._is_on
