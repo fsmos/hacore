@@ -24,6 +24,9 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     new_devices = []
     for gorelka in hub.gorelka:
         new_devices.append(TempMainSensor(gorelka))
+        new_devices.append(TempExtSensor(gorelka))
+        new_devices.append(TempDiselSensor(gorelka))
+        new_devices.append(TempOilSensor(gorelka))
     if new_devices:
         async_add_entities(new_devices)
 
