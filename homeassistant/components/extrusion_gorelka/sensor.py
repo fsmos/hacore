@@ -29,6 +29,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         new_devices.append(TempExtSensor(gorelka))
         new_devices.append(TempDiselSensor(gorelka))
         new_devices.append(TempOilSensor(gorelka))
+        new_devices.append(FireSensor(gorelka))
     if new_devices:
         async_add_entities(new_devices)
 
@@ -224,9 +225,9 @@ class FireSensor(SensorBase):
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} Fire"
 
-        self._state = self._gorelka.temp_oil
+        self._state = self._gorelka.fire
 
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self._gorelka.temp_oil
+        return self._gorelka.fire
