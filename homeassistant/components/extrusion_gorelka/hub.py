@@ -58,6 +58,7 @@ class Gorelka:
         self._is_on = False
         self._fire = 1000
         self._is_night_mode = False
+        self._is_alarm = False
 
         # Some static information about this device
         self.firmware_version = f"0.0.{random.randint(1, 9)}"
@@ -180,3 +181,8 @@ class Gorelka:
     def is_night_mode(self) -> int:
         """Oil Temp."""
         return self._is_night_mode
+
+    @property
+    def is_alarm(self) -> int:
+        """Oil Temp."""
+        return self._is_alarm
