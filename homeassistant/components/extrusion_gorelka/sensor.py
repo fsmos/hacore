@@ -98,3 +98,102 @@ class TempMainSensor(SensorBase):
     def state(self):
         """Return the state of the sensor."""
         return self._gorelka.temp_main
+
+
+class TempExtSensor(SensorBase):
+    """Representation of a Sensor."""
+
+    # The class of this device. Note the value should come from the homeassistant.const
+    # module. More information on the available devices classes can be seen here:
+    # https://developers.home-assistant.io/docs/core/entity/sensor
+    device_class = SensorDeviceClass.TEMPERATURE
+
+    # The unit of measurement for this entity. As it's a DEVICE_CLASS_BATTERY, this
+    # should be PERCENTAGE. A number of units are supported by HA, for some
+    # examples, see:
+    # https://developers.home-assistant.io/docs/core/entity/sensor#available-device-classes
+    _attr_unit_of_measurement = UnitOfTemperature.CELSIUS
+
+    def __init__(self, gorelka):
+        """Initialize the sensor."""
+        super().__init__(gorelka)
+
+        # As per the sensor, this must be a unique value within this domain. This is done
+        # by using the device ID, and appending "_battery"
+        self._attr_unique_id = f"{self._gorelka.gorelka_id}_ext"
+
+        # The name of the entity
+        self._attr_name = f"{self._gorelka.name} Ext"
+
+        self._state = self._gorelka.temp_ext
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._gorelka.temp_ext
+
+
+class TempDiselSensor(SensorBase):
+    """Representation of a Sensor."""
+
+    # The class of this device. Note the value should come from the homeassistant.const
+    # module. More information on the available devices classes can be seen here:
+    # https://developers.home-assistant.io/docs/core/entity/sensor
+    device_class = SensorDeviceClass.TEMPERATURE
+
+    # The unit of measurement for this entity. As it's a DEVICE_CLASS_BATTERY, this
+    # should be PERCENTAGE. A number of units are supported by HA, for some
+    # examples, see:
+    # https://developers.home-assistant.io/docs/core/entity/sensor#available-device-classes
+    _attr_unit_of_measurement = UnitOfTemperature.CELSIUS
+
+    def __init__(self, gorelka):
+        """Initialize the sensor."""
+        super().__init__(gorelka)
+
+        # As per the sensor, this must be a unique value within this domain. This is done
+        # by using the device ID, and appending "_battery"
+        self._attr_unique_id = f"{self._gorelka.gorelka_id}_disel"
+
+        # The name of the entity
+        self._attr_name = f"{self._gorelka.name} Disel"
+
+        self._state = self._gorelka.temp_disel
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._gorelka.temp_disel
+
+
+class TempOilSensor(SensorBase):
+    """Representation of a Sensor."""
+
+    # The class of this device. Note the value should come from the homeassistant.const
+    # module. More information on the available devices classes can be seen here:
+    # https://developers.home-assistant.io/docs/core/entity/sensor
+    device_class = SensorDeviceClass.TEMPERATURE
+
+    # The unit of measurement for this entity. As it's a DEVICE_CLASS_BATTERY, this
+    # should be PERCENTAGE. A number of units are supported by HA, for some
+    # examples, see:
+    # https://developers.home-assistant.io/docs/core/entity/sensor#available-device-classes
+    _attr_unit_of_measurement = UnitOfTemperature.CELSIUS
+
+    def __init__(self, gorelka):
+        """Initialize the sensor."""
+        super().__init__(gorelka)
+
+        # As per the sensor, this must be a unique value within this domain. This is done
+        # by using the device ID, and appending "_battery"
+        self._attr_unique_id = f"{self._gorelka.gorelka_id}_oil"
+
+        # The name of the entity
+        self._attr_name = f"{self._gorelka.name} Oil"
+
+        self._state = self._gorelka.temp_oil
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._gorelka.temp_oil
