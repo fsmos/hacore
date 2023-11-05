@@ -3,13 +3,9 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from jaraco.abode.helpers import constants as CONST
-
 from homeassistant.components.switch import SwitchEntity
 
 from .const import DOMAIN
-
-DEVICE_TYPES = [CONST.TYPE_SWITCH, CONST.TYPE_VALVE]
 
 ICON = "mdi:robot"
 
