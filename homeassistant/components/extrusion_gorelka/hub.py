@@ -57,6 +57,7 @@ class Gorelka:
         self._temp_oil = 20
         self._is_on = False
         self._fire = 1000
+        self._is_night_mode = False
 
         # Some static information about this device
         self.firmware_version = f"0.0.{random.randint(1, 9)}"
@@ -96,6 +97,24 @@ class Gorelka:
         State is announced a random number of seconds later.
         """
         self._is_on = False
+
+        self._loop.create_task(self.delayed_update())
+
+    def switch_night_mode_on(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._is_night_mode = True
+
+        self._loop.create_task(self.delayed_update())
+
+    def switch_night_mode_off(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._is_night_mode = False
 
         self._loop.create_task(self.delayed_update())
 
@@ -156,3 +175,8 @@ class Gorelka:
     def is_on(self) -> int:
         """Oil Temp."""
         return self._is_on
+
+    @property
+    def is_night_mode(self) -> int:
+        """Oil Temp."""
+        return self._is_night_mode
