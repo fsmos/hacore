@@ -9,6 +9,7 @@
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.typing import StateType
 
 from .const import DOMAIN
 
@@ -30,6 +31,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         new_devices.append(TempDiselSensor(gorelka))
         new_devices.append(TempOilSensor(gorelka))
         new_devices.append(FireSensor(gorelka))
+        new_devices.append(StateSensor(gorelka))
     if new_devices:
         async_add_entities(new_devices)
 
@@ -231,3 +233,30 @@ class FireSensor(SensorBase):
     def state(self):
         """Return the state of the sensor."""
         return self._gorelka.fire
+
+
+class StateSensor(SensorBase):
+    """Representation of a Sensor."""
+
+    # The class of this device. Note the value should come from the homeassistant.const
+    # module. More information on the available devices classes can be seen here:
+    # https://developers.home-assistant.io/docs/core/entity/sensor
+    device_class = SensorDeviceClass.ENUM
+
+    def __init__(self, gorelka):
+        """Initialize the sensor."""
+        super().__init__(gorelka)
+
+        # As per the sensor, this must be a unique value within this domain. This is done
+        # by using the device ID, and appending "_battery"
+        self._attr_unique_id = f"{self._gorelka.gorelka_id}_state"
+
+        # The name of the entity
+        self._attr_name = f"{self._gorelka.name} State"
+
+        self.options = (["work", "sleep", "heat_od"],)
+
+    @property
+    def native_value(self) -> StateType:
+        """Return the state."""
+        return self._gorelka.main_status

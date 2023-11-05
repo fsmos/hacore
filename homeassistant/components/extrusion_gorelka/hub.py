@@ -63,6 +63,7 @@ class Gorelka:
         self._fan1_on = False
         self._fan2_procent = 0
         self._fan2_on = False
+        self._main_status = "work"
 
         # Some static information about this device
         self.firmware_version = f"0.0.{random.randint(1, 9)}"
@@ -264,3 +265,8 @@ class Gorelka:
     def fan2_on(self) -> bool:
         """Fan 2."""
         return self._fan2_on
+
+    @property
+    def main_status(self) -> str:
+        """Fan 2."""
+        return self._main_status
