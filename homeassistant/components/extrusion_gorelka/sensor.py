@@ -258,3 +258,8 @@ class StateSensor(SensorBase):
     async def async_update(self) -> None:
         """Get the time and updates the states."""
         self._attr_native_value = self._gorelka.main_status
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._gorelka.main_status
