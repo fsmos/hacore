@@ -254,7 +254,7 @@ class StateSensor(SensorBase):
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} State"
 
-        self.options = (["work", "sleep", "heat_od"],)
+        self._attr_options = (["work", "sleep", "heat_od"],)
 
     @property
     def native_value(self) -> StateType:
