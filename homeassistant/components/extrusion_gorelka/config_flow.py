@@ -17,6 +17,7 @@ _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
+        vol.Required("name"): str,
         vol.Required("host"): str,
     }
 )
@@ -28,9 +29,10 @@ class PlaceholderHub:
     TODO Remove this placeholder class and replace with things from your PyPI package.
     """
 
-    def __init__(self, host: str) -> None:
+    def __init__(self, host: str, name: str) -> None:
         """Initialize."""
         self.host = host
+        self.name = name
 
     async def authenticate(self) -> bool:
         """Test if we can authenticate with the host."""
@@ -49,7 +51,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     #     your_validate_func, data["username"], data["password"]
     # )
 
-    hub = PlaceholderHub(data["host"])
+    hub = PlaceholderHub(data["host"], data["name"])
 
     if not await hub.authenticate():
         raise InvalidAuth
@@ -60,7 +62,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     # InvalidAuth
 
     # Return info that you want to store in the config entry.
-    return {"title": "Name of the device"}
+    return {"title": data["name"]}
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):

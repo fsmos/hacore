@@ -5,16 +5,19 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
+from . import hub
 from .const import DOMAIN
 
 # For your initial PR, limit it to 1 platform.
-PLATFORMS: list[Platform] = [Platform.LIGHT]
+PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Extrusion Gorelka Integration from a config entry."""
 
-    hass.data.setdefault(DOMAIN, {})
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = hub.Hub(
+        hass, entry.data["host"], entry.data["name"]
+    )
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
