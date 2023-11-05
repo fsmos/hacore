@@ -9,7 +9,6 @@
 from homeassistant.components.sensor import SensorDeviceClass
 from homeassistant.const import UnitOfTemperature
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.typing import StateType
 
 from .const import DOMAIN
 
@@ -255,8 +254,8 @@ class StateSensor(SensorBase):
         self._attr_name = f"{self._gorelka.name} State"
 
         self._attr_options = (["work", "sleep", "heat_od"],)
+        self._attr_native_value = self._gorelka.main_status
 
-    @property
-    def native_value(self) -> StateType:
-        """Return the state."""
-        return self._gorelka.main_status
+    async def async_update(self) -> None:
+        """Get the time and updates the states."""
+        self._attr_native_value = self._gorelka.main_status
