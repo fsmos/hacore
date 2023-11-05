@@ -7,8 +7,7 @@ from homeassistant.components.fan import FanEntity
 
 from .const import DOMAIN
 
-ICON = "mdi:robot"
-NIGHTICON = "mdi:weather-night"
+ICON = "mdi:fan"
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
@@ -89,7 +88,7 @@ class Colorifer2Fan(FanEntity):
 
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} Fan 2"
-        self._attr_icon = NIGHTICON
+        self._attr_icon = ICON
 
     # To link this entity to the cover device, this property must return an
     # identifiers value matching that used in the cover, but no other information such
