@@ -80,7 +80,7 @@ class Gorelka:
 
         self._loop.create_task(self.delayed_update())
 
-    async def switch_on(self) -> None:
+    def switch_on(self) -> None:
         """Set dummy cover to the given position.
 
         State is announced a random number of seconds later.
@@ -89,7 +89,7 @@ class Gorelka:
 
         self._loop.create_task(self.delayed_update())
 
-    async def switch_off(self) -> None:
+    def switch_off(self) -> None:
         """Set dummy cover to the given position.
 
         State is announced a random number of seconds later.
@@ -101,10 +101,6 @@ class Gorelka:
     async def delayed_update(self) -> None:
         """Publish updates, with a random delay to emulate interaction with device."""
         await asyncio.sleep(random.randint(1, 10))
-        self._temp_main = 20
-        self._temp_ext = 20
-        self._temp_disel = 20
-        self._temp_oil = 20
         await self.publish_updates()
 
     def register_callback(self, callback: Callable[[], None]) -> None:
@@ -128,7 +124,7 @@ class Gorelka:
         """Roller is online."""
         # The dummy roller is offline about 10% of the time. Returns True if online,
         # False if offline.
-        return random.random() > 0.1
+        return True
 
     @property
     def temp_main(self) -> int:

@@ -31,6 +31,7 @@ class GorelkaEnableSwitch(SwitchEntity):
 
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} Enable"
+        self._attr_icon = ICON
 
     # To link this entity to the cover device, this property must return an
     # identifiers value matching that used in the cover, but no other information such

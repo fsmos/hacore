@@ -12,6 +12,8 @@ from homeassistant.helpers.entity import Entity
 
 from .const import DOMAIN
 
+FIREICON = "mdi:fire"
+
 
 # See cover.py for more details.
 # Note how both entities for each roller sensor (battry and illuminance) are added at
@@ -193,6 +195,34 @@ class TempOilSensor(SensorBase):
 
         # The name of the entity
         self._attr_name = f"{self._gorelka.name} Oil"
+
+        self._state = self._gorelka.temp_oil
+
+    @property
+    def state(self):
+        """Return the state of the sensor."""
+        return self._gorelka.temp_oil
+
+
+class FireSensor(SensorBase):
+    """Representation of a Sensor."""
+
+    # The class of this device. Note the value should come from the homeassistant.const
+    # module. More information on the available devices classes can be seen here:
+    # https://developers.home-assistant.io/docs/core/entity/sensor
+    device_class = SensorDeviceClass.ILLUMINANCE
+
+    def __init__(self, gorelka):
+        """Initialize the sensor."""
+        super().__init__(gorelka)
+        self._attr_icon = FIREICON
+
+        # As per the sensor, this must be a unique value within this domain. This is done
+        # by using the device ID, and appending "_battery"
+        self._attr_unique_id = f"{self._gorelka.gorelka_id}_fire"
+
+        # The name of the entity
+        self._attr_name = f"{self._gorelka.name} Fire"
 
         self._state = self._gorelka.temp_oil
 
