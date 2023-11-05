@@ -59,6 +59,10 @@ class Gorelka:
         self._fire = 1000
         self._is_night_mode = False
         self._is_alarm = False
+        self._fan1_procent = 0
+        self._fan1_on = False
+        self._fan2_procent = 0
+        self._fan2_on = False
 
         # Some static information about this device
         self.firmware_version = f"0.0.{random.randint(1, 9)}"
@@ -119,6 +123,60 @@ class Gorelka:
 
         self._loop.create_task(self.delayed_update())
 
+    def set_fan1_procent(self, procent) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan1_procent = procent
+
+        self._loop.create_task(self.delayed_update())
+
+    def set_fan1_on(self, procent) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan1_procent = procent
+        self._fan1_on = True
+        self._loop.create_task(self.delayed_update())
+
+    def set_fan1_off(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan1_on = False
+
+        self._loop.create_task(self.delayed_update())
+
+    def set_fan2_procent(self, procent) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan2_procent = procent
+
+        self._loop.create_task(self.delayed_update())
+
+    def set_fan2_on(self, procent) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan2_procent = procent
+        self._fan2_on = True
+        self._loop.create_task(self.delayed_update())
+
+    def set_fan2_off(self) -> None:
+        """Set dummy cover to the given position.
+
+        State is announced a random number of seconds later.
+        """
+        self._fan2_on = False
+
+        self._loop.create_task(self.delayed_update())
+
     async def delayed_update(self) -> None:
         """Publish updates, with a random delay to emulate interaction with device."""
         await asyncio.sleep(random.randint(1, 10))
@@ -173,16 +231,36 @@ class Gorelka:
         return self._fire
 
     @property
-    def is_on(self) -> int:
+    def is_on(self) -> bool:
         """Oil Temp."""
         return self._is_on
 
     @property
-    def is_night_mode(self) -> int:
+    def is_night_mode(self) -> bool:
         """Oil Temp."""
         return self._is_night_mode
 
     @property
-    def is_alarm(self) -> int:
+    def is_alarm(self) -> bool:
         """Oil Temp."""
         return self._is_alarm
+
+    @property
+    def fan1_procent(self) -> int:
+        """Fan 1."""
+        return self._fan1_procent
+
+    @property
+    def fan2_procent(self) -> int:
+        """Fan 2."""
+        return self._fan2_procent
+
+    @property
+    def fan1_on(self) -> bool:
+        """Fan 1."""
+        return self._fan1_on
+
+    @property
+    def fan2_on(self) -> bool:
+        """Fan 2."""
+        return self._fan2_on
